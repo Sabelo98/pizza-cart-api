@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body x-data="{
+    title: 'Pizza Cart API'
+    pizzas: []
+    }" x-init="axios
+    .get('https://pizza-api.projectcodex.net/api/pizzas')
+    .then(result => {
+        console.log(result.data)
+        pizzas = result.data.pizzas
+    })">
+    <h1 x-text="title"></h1>
+
+    <div class="cart">
+    </div>
+
+    </div>
+    <div>
+        <h2>CART</h2>
+        <div class="message">Message here</div>
+
+        <table>
+            <tr>
+                <th>Flavour</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>Flavour 2</td>
+                <td>Small</td>
+                <td>37.88</td>
+                <td>
+                    <button>+</button>
+                    x<span>3</span>
+                    <button>-</button>
+                </td>
+                <td>300</td>
+            </tr>
+            <tr>
+                <td>Flavour 3</td>
+                <td>Small</td>
+                <td>37.88</td>
+                <td>
+                    <button>+</button>
+                    x<span>3</span>
+                    <button>-</button>
+                </td>
+                <td>300</td>
+            </tr>
+            <tr>
+                <td>Flavour 1</td>
+                <td>Small</td>
+                <td>37.88</td>
+                <td>
+                    <button>+</button>
+                    x<span>3</span>
+                    <button>-</button>
+                </td>
+                <td>300</td>
+
+                <tr> Total</tr>
+                <td>R345</td>
+
+                <tr>Balance</tr>
+                <td input="text"></td>
+                <button>Pays</button>
+            </tr>
+        </table>
+
+
+
+    </div>
+
+    <template x-for="pizza in pizzas">
+        <div class="pizza">
+            <h5 x-text="pizza.flavour"></h5>
+            <!-- <span x-text="pizza.size"></span> -->
+            <span x-text="pizza.size"></span>
+            <span x-text="pizza.price"></span>
+        </div>
+
+    </template>
+
+
+</body>
+
+/html>
