@@ -67,3 +67,12 @@ content-type: application/json
 	"cart_code" : "XbQPhnhJEA",
 	"amount" : 200
 }
+
+### Featured Pizzas
+GET  https://pizza-api.projectcodex.net/api/pizzas/featured
+content-type: application/json
+
+{
+	"username" : "username_here",
+	"pizza_id" : 7
+}
