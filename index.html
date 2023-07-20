@@ -27,6 +27,15 @@
     <div class="container">
       <h1 x-text="title"></h1>
 
+      <div>
+        username: <input x-model="username" type="text">
+        <button x-on:click="login" x-show="!cartId">login</button>
+        <button x-on:click="logout" x-show="username && cartId ">logout</button>
+        </div>
+        <div x-cloak x-show="cartId">
+        cart code: <span x-text="cartId"></span>
+        </div> 
+
       <div class="cart">
         <div>Cart code: <span x-text="cartId"></span></div>
 

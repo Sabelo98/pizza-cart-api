@@ -3,14 +3,32 @@ document.addEventListener("alpine:init", () => {
         return {
             title: 'Pizza Cart API',
             pizzas: [],
-            username: 'Sabelo98',
-            cartId: 'AXWiLEXKh4',
+            username: '',
+            cartId: '',
             cartPizzas: [],
             cartData: [],
             cartTotal: 0.00,
             paymentAmount: 0,
             message:'',
             pizza: '',
+
+            login() {
+                if (this.username.length > 2) {
+                    localStorage['username'] = this.username;
+                    this.createCart();
+                } else {
+                    alert('username is too short');
+                }
+            },
+            logout() {
+                if (confirm('Do you want to logout?')) {
+                    this.username = '';
+                    this.cartId = '';
+                    localStorage['cartId'] = '';
+                    localStorage['username'] = '';
+                }
+            },
+
             createCart() {
                 const getCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/create?username=${this.username}`
 
@@ -33,7 +51,7 @@ document.addEventListener("alpine:init", () => {
 
                 return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/add', {
                     "cart_code": this.cartId,
-                    "pizza_id": PizzaId
+                    "pizza_id": PizzaId,
 
                 });
             },
@@ -41,7 +59,7 @@ document.addEventListener("alpine:init", () => {
 
                 return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/remove', {
                     "cart_code": this.cartId,
-                    "pizza_id": PizzaId
+                    "pizza_id": PizzaId,
 
                 });
             },
@@ -114,7 +132,9 @@ document.addEventListener("alpine:init", () => {
                         this.message = result.data.message;
                         setTimeout(() => this.message= '', 3000);
                     } else {
-                    this.message = 'Payment Received, Enjoy!';
+                        const change =  this.paymentAmount - this.cartTotal;
+
+                    this.message = `Your change is: ${change.toFixed(2)}, Payment Received, Enjoy!`;
 
                     setTimeout(() => {
                     this.message = '';
